@@ -11,13 +11,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 if not SECRET_KEY:
     SECRET_KEY = 'djangoledger1234!DoNotUse!BadIdea!VeryInsecure!'
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'false').lower() == 'true'
 if DEBUG:
     logger.setLevel(logging.DEBUG)
     logger.warning('DEBUG MODE ON. Do NOT use this Development Environment!')
 
-ALLOWED_HOSTS = ['127.0.0.1', '192.168.1.102', 'localhost']
-CSRF_TRUSTED_ORIGINS = ['https://*.preview.app.github.dev']
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '127.0.0.1 192.168.1.102 localhost').split(' ')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://*.preview.app.github.dev').split(' ')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
